@@ -1,9 +1,8 @@
-import LeadCaptureForm from './LeadCaptureForm'
-
 export default function CTASection() {
   return (
     <section id="cta" className="py-24" style={{ background: '#1F2D54' }}>
       <div className="mx-auto max-w-xl px-6 text-center">
+
         {/* Icon */}
         <div
           className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl"
@@ -43,8 +42,8 @@ export default function CTASection() {
         {/* Stats row */}
         <div className="my-8 flex items-center justify-center gap-8">
           {[
-            { val: '180M+', label: 'Americans we can help' },
-            { val: '$556B', label: 'In preventable OOP costs' },
+            { val: '180M+',   label: 'Americans we can help' },
+            { val: '$556B',   label: 'In preventable OOP costs' },
             { val: 'Q3 2026', label: 'Launch date' },
           ].map(s => (
             <div key={s.val} className="text-center">
@@ -54,12 +53,27 @@ export default function CTASection() {
           ))}
         </div>
 
+        {/* Kit CTA button */}
         <div
           className="rounded-2xl p-6"
           style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
         >
-          <LeadCaptureForm />
+          <p className="mb-4 text-sm font-medium" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            The average American leaves $4,000 a year on the table. Be first to stop it.
+          </p>
+          <a
+            data-formkit-toggle="b018e66bab"
+            href="https://benies.kit.com/b018e66bab"
+            className="inline-flex items-center justify-center rounded-xl px-8 py-3.5 text-sm font-bold text-white transition hover:opacity-90 active:scale-95"
+            style={{ background: '#0076BC' }}
+          >
+            Get Early Access
+          </a>
+          <p className="mt-3 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            No spam. No selling your data. Unsubscribe anytime.
+          </p>
         </div>
+
       </div>
     </section>
   )
