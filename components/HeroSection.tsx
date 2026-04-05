@@ -103,7 +103,7 @@ export default function HeroSection() {
       </div>
 
       {/* Kit script */}
-      <script src="https://f.kit.com/b018e66bab/index.js" async />
+      
     </section>
   )
 }
