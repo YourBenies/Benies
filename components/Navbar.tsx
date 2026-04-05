@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import BeniesLogo from './BeniesLogo'
 
 interface Props {
-  onOpenWaitlist: () => void
+  onOpenWaitlist?: () => void
 }
 
 const navLinks = [
