@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 export default function Terms() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar onOpenWaitlist={() => {}} />
+      <Navbar />
       <main className="mx-auto max-w-2xl px-6 py-20">
         <h1 className="text-3xl font-bold text-navy">Terms of Service</h1>
         <p className="mt-4 text-gray-600">
