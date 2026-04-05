@@ -1,7 +1,5 @@
 'use client'
 
-import LeadCaptureForm from './LeadCaptureForm'
-
 export default function HeroSection() {
   const scrollTo = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
@@ -37,13 +35,21 @@ export default function HeroSection() {
             </h1>
 
             <p className="mt-6 text-lg leading-relaxed text-gray-500">
-              Benies is your AI-powered benefits advocate — helping you understand your
-              coverage, predict healthcare costs, catch billing errors, and maximize every
-              dollar of the benefits you already pay for.
+              You work hard for your benefits. Benies makes sure they work just as hard
+              for you — guiding you in real-time so you can make smarter decisions, save
+              money, and feel truly confident about your care.
             </p>
 
-            <div className="mt-8">
-              <LeadCaptureForm compact />
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                data-formkit-toggle="b018e66bab"
+                href="https://benies.kit.com/b018e66bab"
+                className="inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-semibold text-white transition hover:opacity-90 active:scale-95"
+                style={{ background: '#0076BC' }}
+              >
+                Get Early Access
+              </a>
+              <p className="text-xs text-gray-400">No spam. No selling your data. Unsubscribe anytime.</p>
             </div>
 
             <button
@@ -73,12 +79,19 @@ export default function HeroSection() {
           </div>
 
           {/* Right — iPhone 16 Pro mockup */}
-          <div className="relative flex justify-center lg:justify-end">
+          <div className="relative flex items-center justify-center lg:justify-end" style={{ minHeight: 560 }}>
 
             {/* Floating card top-left */}
             <div
-              className="absolute -left-4 top-10 z-20 rounded-2xl px-4 py-3 shadow-xl"
-              style={{ background: 'white', borderLeft: '3px solid #00BCD8', minWidth: 185 }}
+              className="absolute z-20 rounded-2xl px-4 py-3 shadow-xl"
+              style={{
+                background: 'white',
+                borderLeft: '3px solid #00BCD8',
+                minWidth: 185,
+                top: '50%',
+                left: -16,
+                transform: 'translateY(-140px)',
+              }}
             >
               <div className="flex items-center gap-2">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full" style={{ background: '#D0F0F8' }}>
@@ -95,8 +108,15 @@ export default function HeroSection() {
 
             {/* Floating card bottom-right */}
             <div
-              className="absolute -right-2 bottom-24 z-20 rounded-2xl px-4 py-3 shadow-xl"
-              style={{ background: 'white', borderLeft: '3px solid #F59E0B', minWidth: 185 }}
+              className="absolute z-20 rounded-2xl px-4 py-3 shadow-xl"
+              style={{
+                background: 'white',
+                borderLeft: '3px solid #F59E0B',
+                minWidth: 185,
+                top: '50%',
+                right: -8,
+                transform: 'translateY(60px)',
+              }}
             >
               <div className="flex items-center gap-2">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full" style={{ background: '#FEF3C7' }}>
@@ -328,8 +348,12 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
+
+      {/* Kit script */}
+      <script src="https://f.kit.com/b018e66bab/index.js" async />
     </section>
   )
 }
