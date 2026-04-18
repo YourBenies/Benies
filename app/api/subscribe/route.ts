@@ -1,44 +1,40 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
+  const { email } = await req.json();
+
+  if (!email || !email.includes('@')) {
+    return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
+  }
+
+  // Write to Kit (ConvertKit)
   try {
-    const { email, name } = await req.json()
-
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
-    }
-
-    const apiKey = process.env.KIT_API_KEY
-    const formId = '9287136'
-
-    // Using Kit/ConvertKit v3 API which works on all plans
-    const response = await fetch(
-      `https://api.convertkit.com/v3/forms/${formId}/subscribe`,
+    await fetch(
+      `https://api.convertkit.com/v3/forms/${process.env.KIT_FORM_ID}/subscribe`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          api_key: apiKey,
-          email: email,
-          first_name: name || '',
+          api_key: process.env.KIT_API_KEY,
+          email,
         }),
       }
-    )
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      console.error('Kit API error:', JSON.stringify(data))
-      return NextResponse.json({ success: true, kitError: data })
-    }
-
-    console.log('Kit subscription success:', data?.subscription?.id)
-    return NextResponse.json({ success: true })
-
-  } catch (err) {
-    console.error('Subscribe error:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    );
+  } catch (e) {
+    console.error('Kit write failed:', e);
   }
+
+  // Write to Supabase
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+    await supabase.from('waitlist').insert({ email, source: 'homepage' });
+  } catch (e) {
+    console.error('Supabase write failed:', e);
+  }
+
+  return NextResponse.json({ success: true });
 }
