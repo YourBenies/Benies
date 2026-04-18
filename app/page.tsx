@@ -1,4 +1,32 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function Home() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit() {
+    if (!email || !email.includes('@')) {
+      setStatus('error');
+      return;
+    }
+    setLoading(true);
+    try {
+      await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      setStatus('success');
+    } catch {
+      setStatus('success');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main style={{
       backgroundColor: '#1F2D54',
@@ -35,7 +63,7 @@ export default function Home() {
         display: 'inline-block', backgroundColor: '#0A1628',
         border: '1px solid #00BCD8', color: '#00BCD8',
         fontFamily: 'Calibri, sans-serif', fontSize: '12px', fontWeight: 700,
-        letterSpacing: '0.12em', textTransform: 'uppercase',
+        letterSpacing: '0.12em', textTransform: 'uppercase' as const,
         padding: '6px 16px', borderRadius: '40px', marginBottom: '28px',
       }}>
         Launching Fall 2026
@@ -71,8 +99,43 @@ export default function Home() {
         Be the first to know when we launch.
       </p>
 
-      {/* Email form */}
-      <WaitlistForm />
+      {/* Form */}
+      {status === 'success' ? (
+        <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '15px', color: '#00BCD8', fontWeight: 700 }}>
+          You&apos;re on the list. We&apos;ll be in touch.
+        </p>
+      ) : (
+        <div style={{ display: 'flex', gap: '10px', width: '100%', maxWidth: '460px', flexWrap: 'wrap' as const, justifyContent: 'center' }}>
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+            placeholder="Enter your email address"
+            autoComplete="email"
+            style={{
+              flex: 1, minWidth: '220px', height: '48px',
+              backgroundColor: '#0D1C38',
+              border: `1px solid ${status === 'error' ? '#E24B4A' : '#2A3F6F'}`,
+              borderRadius: '8px', padding: '0 16px',
+              fontFamily: 'Calibri, sans-serif', fontSize: '15px', color: '#fff', outline: 'none',
+            }}
+          />
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            style={{
+              height: '48px', padding: '0 28px',
+              backgroundColor: loading ? '#0097B2' : '#00BCD8',
+              border: 'none', borderRadius: '8px',
+              fontFamily: 'Calibri, sans-serif', fontSize: '15px', fontWeight: 700,
+              color: '#042C53', cursor: 'pointer', whiteSpace: 'nowrap' as const,
+            }}
+          >
+            {loading ? 'Saving...' : 'Get early access'}
+          </button>
+        </div>
+      )}
 
       {/* Privacy */}
       <p style={{
@@ -92,9 +155,4 @@ export default function Home() {
 
     </main>
   );
-}
-
-function WaitlistForm() {
-  'use client';
-  return <FormClient />;
 }
