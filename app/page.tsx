@@ -14,7 +14,7 @@ export default function Home() {
     }
     setLoading(true);
     try {
-     await fetch('/api/subscribe', {
+      const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
@@ -148,21 +148,3 @@ export default function Home() {
       )}
 
       {/* Privacy */}
-      <p style={{
-        fontFamily: 'Calibri, sans-serif', fontSize: '12px',
-        color: '#4A6080', marginTop: '14px',
-      }}>
-        No spam, ever. Unsubscribe anytime.
-      </p>
-
-      {/* Footer */}
-      <p style={{
-        fontFamily: 'Calibri, sans-serif', fontSize: '12px',
-        color: '#2A3F6F', marginTop: '60px',
-      }}>
-        yourbenies.com &nbsp;·&nbsp; © 2026 Benies LLC
-      </p>
-
-    </main>
-  );
-}
