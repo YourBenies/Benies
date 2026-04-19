@@ -14,13 +14,15 @@ export default function Home() {
     }
     setLoading(true);
     try {
-      await fetch('/api/subscribe/', {
+      const res = await fetch('/api/subscribe/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
+      console.log('Submit status:', res.status);
       setStatus('success');
-    } catch {
+    } catch (err) {
+      console.error('Submit error:', err);
       setStatus('success');
     } finally {
       setLoading(false);
@@ -101,11 +103,17 @@ export default function Home() {
 
       {/* Form */}
       {status === 'success' ? (
-        <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '15px', color: '#00BCD8', fontWeight: 700 }}>
+        <p style={{
+          fontFamily: 'Calibri, sans-serif', fontSize: '15px',
+          color: '#00BCD8', fontWeight: 700,
+        }}>
           You&apos;re on the list. We&apos;ll be in touch.
         </p>
       ) : (
-        <div style={{ display: 'flex', gap: '10px', width: '100%', maxWidth: '460px', flexWrap: 'wrap' as const, justifyContent: 'center' }}>
+        <div style={{
+          display: 'flex', gap: '10px', width: '100%',
+          maxWidth: '460px', flexWrap: 'wrap' as const, justifyContent: 'center',
+        }}>
           <input
             type="email"
             value={email}
@@ -118,10 +126,12 @@ export default function Home() {
               backgroundColor: '#0D1C38',
               border: `1px solid ${status === 'error' ? '#E24B4A' : '#2A3F6F'}`,
               borderRadius: '8px', padding: '0 16px',
-              fontFamily: 'Calibri, sans-serif', fontSize: '15px', color: '#fff', outline: 'none',
+              fontFamily: 'Calibri, sans-serif', fontSize: '15px',
+              color: '#fff', outline: 'none',
             }}
           />
           <button
+            type="button"
             onClick={handleSubmit}
             disabled={loading}
             style={{
