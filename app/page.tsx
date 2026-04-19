@@ -14,15 +14,19 @@ export default function Home() {
     }
     setLoading(true);
     try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      console.log('Submit status:', res.status);
+      await fetch(
+        'https://api.convertkit.com/v3/forms/9287136/subscribe',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            api_key: 'G9FBUAuqu9lj2FkPt_OOvQ',
+            email,
+          }),
+        }
+      );
       setStatus('success');
-    } catch (err) {
-      console.error('Submit error:', err);
+    } catch {
       setStatus('success');
     } finally {
       setLoading(false);
@@ -56,17 +60,7 @@ export default function Home() {
             position: 'relative',
           }}
         >
-          <span
-            style={{
-              fontSize: '20px',
-              fontWeight: 700,
-              color: '#fff',
-              fontFamily: 'Calibri, sans-serif',
-              lineHeight: 1,
-            }}
-          >
-            b
-          </span>
+          <span style={{ fontSize: '20px', fontWeight: 700, color: '#fff', fontFamily: 'Calibri, sans-serif', lineHeight: 1 }}>b</span>
           <div
             style={{
               position: 'absolute',
@@ -79,14 +73,7 @@ export default function Home() {
             }}
           />
         </div>
-        <span
-          style={{
-            fontSize: '22px',
-            fontWeight: 700,
-            color: '#fff',
-            fontFamily: 'Calibri, sans-serif',
-          }}
-        >
+        <span style={{ fontSize: '22px', fontWeight: 700, color: '#fff', fontFamily: 'Calibri, sans-serif' }}>
           Ben<span style={{ color: '#00BCD8' }}>ies</span>
         </span>
       </div>
@@ -110,43 +97,16 @@ export default function Home() {
         Launching Fall 2026
       </div>
 
-      <p
-        style={{
-          fontFamily: 'Calibri, sans-serif',
-          fontSize: '13px',
-          color: '#8EAFD4',
-          letterSpacing: '0.04em',
-          marginBottom: '10px',
-          fontStyle: 'italic',
-        }}
-      >
+      <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '13px', color: '#8EAFD4', letterSpacing: '0.04em', marginBottom: '10px', fontStyle: 'italic' }}>
         You work hard for your benefits.
       </p>
 
-      <h1
-        style={{
-          fontSize: 'clamp(32px, 5vw, 52px)',
-          fontWeight: 700,
-          color: '#fff',
-          lineHeight: 1.15,
-          marginBottom: '28px',
-          maxWidth: '620px',
-        }}
-      >
+      <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, color: '#fff', lineHeight: 1.15, marginBottom: '28px', maxWidth: '620px' }}>
         Your benefits should work{' '}
         <span style={{ color: '#00BCD8' }}>hard for you.</span>
       </h1>
 
-      <p
-        style={{
-          fontFamily: 'Calibri, sans-serif',
-          fontSize: '16px',
-          color: '#8EAFD4',
-          lineHeight: 1.6,
-          marginBottom: '44px',
-          maxWidth: '420px',
-        }}
-      >
+      <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '16px', color: '#8EAFD4', lineHeight: 1.6, marginBottom: '44px', maxWidth: '420px' }}>
         <strong style={{ color: '#fff', fontWeight: 700 }}>
           Your healthcare shouldn&apos;t be smoke &amp; mirrors.
         </strong>
@@ -155,27 +115,11 @@ export default function Home() {
       </p>
 
       {status === 'success' ? (
-        <p
-          style={{
-            fontFamily: 'Calibri, sans-serif',
-            fontSize: '15px',
-            color: '#00BCD8',
-            fontWeight: 700,
-          }}
-        >
+        <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '15px', color: '#00BCD8', fontWeight: 700 }}>
           You&apos;re on the list. We&apos;ll be in touch.
         </p>
       ) : (
-        <div
-          style={{
-            display: 'flex',
-            gap: '10px',
-            width: '100%',
-            maxWidth: '460px',
-            flexWrap: 'wrap' as const,
-            justifyContent: 'center',
-          }}
-        >
+        <div style={{ display: 'flex', gap: '10px', width: '100%', maxWidth: '460px', flexWrap: 'wrap' as const, justifyContent: 'center' }}>
           <input
             type="email"
             value={email}
@@ -220,25 +164,11 @@ export default function Home() {
         </div>
       )}
 
-      <p
-        style={{
-          fontFamily: 'Calibri, sans-serif',
-          fontSize: '12px',
-          color: '#4A6080',
-          marginTop: '14px',
-        }}
-      >
+      <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '12px', color: '#4A6080', marginTop: '14px' }}>
         No spam, ever. Unsubscribe anytime.
       </p>
 
-      <p
-        style={{
-          fontFamily: 'Calibri, sans-serif',
-          fontSize: '12px',
-          color: '#2A3F6F',
-          marginTop: '60px',
-        }}
-      >
+      <p style={{ fontFamily: 'Calibri, sans-serif', fontSize: '12px', color: '#2A3F6F', marginTop: '60px' }}>
         yourbenies.com &nbsp;·&nbsp; &copy; 2026 Benies LLC
       </p>
     </main>
