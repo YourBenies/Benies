@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
   try {
     const response = await fetch(
-      `https://api.convertkit.com/v3/forms/${process.env.9287136}/subscribe`,
+      `https://api.convertkit.com/v3/forms/${process.env.KIT_FORM_ID}/subscribe`
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
