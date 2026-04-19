@@ -6,6 +6,17 @@ export const metadata: Metadata = {
   title: 'Benies — Benefits should work harder for you.',
   description: 'AI-powered benefits optimization and healthcare navigation. Understand your coverage, predict costs, catch billing errors, and maximize every dollar of your employer benefits.',
   metadataBase: new URL('https://yourbenies.com'),
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
   openGraph: {
     title: 'Benies — Benefits should work harder for you.',
     description: 'Stop guessing about healthcare costs. Benies helps you maximize your benefits, predict expenses, and eliminate surprise bills.',
